@@ -1,0 +1,5 @@
+var searchData=
+[
+  ['handlemsg',['HandleMsg',['../interface_i_proto.html#a32263446c74d308905b11882964b6b1e',1,'IProto.HandleMsg()'],['../class_managed_proto.html#a42228aae182b63a64091386371a11995',1,'ManagedProto.HandleMsg()'],['../class_proto_stack.html#a18b9821ad10eadc6e1828480a6864898',1,'ProtoStack.HandleMsg()'],['../class_session_proto_collection.html#a021836b7e8a4f1165ad47388c99a58e4',1,'SessionProtoCollection.HandleMsg()'],['../class_transport_proto.html#a917cc12f0817f6df0ab69d479317772a',1,'TransportProto.HandleMsg()'],['../class_ping_client.html#ab398e26b2dff9690aa307afa601e0da7',1,'PingClient.HandleMsg()'],['../class_ping_server.html#a1279231efc3534d9ab74dd80d8388c64',1,'PingServer.HandleMsg()']]],
+  ['holds',['Holds',['../interface_i_service_proto.html#a88abc8acab68f257e24c34f233afa0c8',1,'IServiceProto.Holds()'],['../class_managed_proto.html#ae06d3ce713d0617b182142bba227492a',1,'ManagedProto.Holds()'],['../class_transport_proto.html#a11f379ae1c6bc02e81ce55aaf47ec739',1,'TransportProto.Holds()']]]
+];

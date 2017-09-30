@@ -4,21 +4,21 @@ using System.Collections.Generic;
 
 /*!
  *  \author  4o
- *  \brief manages a set of IProto for a given "receiverID"
+ *  \brief manages a set of IProto associated with particular "receiverID"
  *  \details this class manages a collection of IProtos associated with a
  *           particular "senderID".
  *           reminder: proto structure
- *           ProtoStack - filteres messages by sender and receiver ID
- *           SessionProtoCollection - filteres messages by channel ID (aka port)
- *           IProto - filteres messages by proto ID
+ *           ProtoStack - filters messages by sender and receiver ID
+ *           SessionProtoCollection - filters messages by channel ID (aka port)
+ *           IProto - filters messages by proto ID
  *           reminder: message structure
  *           [receiverID] [senderId] [channelID] [protoID] [message]
  *                                        ^
  *                                  you are here
  *           this class handles a collection of Protos associated with channel ID strings.
- *           it handles channelID parsing to enable truly abtract IProto operation.
+ *           it handles channelID parsing to enable truly abstract IProto operation.
  *           discards message if:
- *           1. `msg` has no delimeter ofter offset (no channelID field)
+ *           1. `msg` has no delimiter ofter offset (no channelID field)
  *           2. no IProto is registered for the channelID
  *           possible ways to improve this class:
  *           1. call `step()` on a single proto in a tick (possibly with `yield return`)
@@ -27,33 +27,34 @@ using System.Collections.Generic;
  *              channelID detection
  *           3. add a method to remove IProto by reference to enable `IProto.Disable()`
  *              method for convenience purposes
- *  \coryright BSD 3-clause
  */
 public class SessionProtoCollection {
 
     /*!
+     *  \author  4o
      *  \brief a list of IProtos associated with "channelIDs"
      */
     Dictionary <string, IProto> protos = new Dictionary <string, IProto> ();
     /*!
+     *  \author  4o
      *  \brief a list of spoilable IProtos associated with "channelIDs"
      */
     Dictionary <string, IProto> managedProtos = new Dictionary <string, IProto> ();
-
     /*!
+     *  \author  4o
      *  \brief checks if there are any IProtos registered
      */
     public bool ReadyToDie {get {
         return (protos.Count + managedProtos.Count) == 0;
     }}
-
     /*!
+     *  \author  4o
      *  \brief service variable. although it's used only in `internalStep()`, it was
      *         placed here to avoid excessive allocations
      */
     List<string> protoNamesReadyToDie = new List<string> ();
-
     /*!
+     *  \author  4o
      *  \brief registers channelID<->IProto pair
      *  \param channel channelID to associate the proto to
      *  \param proto IProto to register
@@ -75,8 +76,8 @@ public class SessionProtoCollection {
         }
         return false;
     }
-
     /*!
+     *  \author  4o
      *  \brief registers channelID<->IProto pair
      *  \param channel channelID to associate the proto to
      *  \param proto IProto to register
@@ -102,8 +103,8 @@ public class SessionProtoCollection {
         }
         return false;
     }
-
     /*!
+     *  \author  4o
      *  \brief removes a proto by channel name
      *  \param channel channelID to clear of a IProto
      */
@@ -114,8 +115,8 @@ public class SessionProtoCollection {
         protos.Remove (channel);
         return true;
     }
-
     /*!
+     *  \author  4o
      *  \brief a step function that allows message transmission
      *  \details a step function that allows message transmission
      *           loops protos with `StepCanSend()` until someone returns
@@ -152,8 +153,8 @@ public class SessionProtoCollection {
         }
         return ret;
     }
-
     /*!
+     *  \author  4o
      *  \brief a step function that forbids message transmission
      */
     public void StepCantSend () {
@@ -165,14 +166,14 @@ public class SessionProtoCollection {
             p.Value.StepCantSend ();
         }
     }
-
     /*!
-     *  \brief parses `msg` to get channelID, then passes the message forther with valid offset
+     *  \author  4o
+     *  \brief parses `msg` to get channelID, then passes the message further with valid offset
      *  \param msg a message to parse
      *  \param offset indicates the start of message related to this class parser
      *         (after "receiverID" and "senderID" fields)
      *  \details discards message if:
-     *           1. `msg` has no delimeter ofter offset (no channelID field)
+     *           1. `msg` has no delimiter ofter offset (no channelID field)
      *           2. no IProto is registered for the channelID
      *           get the time of it's message transmission
      */
@@ -191,8 +192,8 @@ public class SessionProtoCollection {
         }
         return false;
     }
-
     /*!
+     *  \author  4o
      *  \brief checks the spoilable IProto list and removes spoiled items
      */
     void internalStep () {
@@ -212,8 +213,8 @@ public class SessionProtoCollection {
             managedProtos.Remove (n);
         }
     }
-
     /*!
+     *  \author  4o
      *  \brief checks if an IProto could be associated with a "channelID"
      *  \param channel "channelID"
      *  \param proto an instance of IProto
